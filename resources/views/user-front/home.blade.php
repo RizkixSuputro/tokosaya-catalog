@@ -11,7 +11,7 @@
             <div class="swiper-wrapper">
                 <!-- Slide 1 -->
                 <div class="swiper-slide">
-                    <img src="{{ asset('assets/images/hero/hero1.png') }}" alt="Product 1">
+                    <img src="{{ asset('assets/user_front/images/hero/hero1.png') }}" alt="Product 1">
                     <div class="swiper-slide-content">
                         <h2 class="text-3xl md:text-7xl font-bold text-white mb-2 md:mb-4">Langkah dengan Gaya</h2>
                         <p class="mb-4 text-white md:text-2xl">Temukan sepatu yang nyaman, modern, dan cocok <br>untuk
@@ -23,7 +23,7 @@
                 </div>
                 <!-- Slide 2 -->
                 <div class="swiper-slide">
-                    <img src="{{ asset('assets/images/hero/hero2.png') }}" alt="Product 2">
+                    <img src="{{ asset('assets/user_front/images/hero/hero2.png') }}" alt="Product 2">
                     <div class="swiper-slide-content">
                         <h2 class="text-3xl md:text-7xl font-bold text-white mb-2 md:mb-4">Sepatu yang Bicara</h2>
                         <p class="mb-4 text-white md:text-2xl">Tunjukkan gayamu melalui setiap langkah <br>dengan desain
@@ -35,7 +35,7 @@
                 </div>
                 <!-- Slide 3 -->
                 <div class="swiper-slide">
-                    <img src="{{ asset('assets/images/hero/hero3.png') }}" alt="Product 3">
+                    <img src="{{ asset('assets/user_front/images/hero/hero3.png') }}" alt="Product 3">
                     <div class="swiper-slide-content">
                         <h2 class="text-3xl md:text-7xl font-bold text-white mb-2 md:mb-4">Siap di Setiap Langkah</h2>
                         <p class="mb-4 text-white md:text-2xl">Dirancang untuk memberikan kenyamanan dan gaya <br> dalam
