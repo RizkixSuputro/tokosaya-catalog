@@ -15,5 +15,5 @@ Route::get('/kontak', function () {
 })->name('kontak');
 
 Route::get('/admin', function () {
-    return view('admin.dashboard');
+    return view('back_office.dashboard');
 });
