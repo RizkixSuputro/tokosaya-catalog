@@ -11,32 +11,14 @@
               </li>
 
               <li class="nav-item d-none d-md-block">
-                  <a href="./index.html" class="nav-link">
+                  <a href="{{ route('home') }}" class="nav-link">
                       <i class="bi bi-grid-1x2 me-1" aria-hidden="true"></i>
-                      Live preview
+                      Lihat Website
                   </a>
               </li>
-              <li class="nav-item d-none d-md-block">
-                  <a href="./docs/introduction.html" class="nav-link">
-                      <i class="bi bi-book me-1" aria-hidden="true"></i>
-                      Documentation
-                  </a>
-              </li>
+
           </ul>
           <!--end::Start Navbar Links-->
-
-          <!--begin::Navbar Search-->
-          <form class="navbar-search d-none d-md-block ms-3" role="search" action="./pages/search-results.html">
-              <label for="navbar-search-input" class="visually-hidden">Search</label>
-              <div class="navbar-search-field">
-                  <input type="search" id="navbar-search-input" name="q" class="form-control"
-                      placeholder="Search…" autocomplete="off" />
-                  <button class="navbar-search-submit" type="submit" aria-label="Submit search">
-                      <i class="bi bi-search" aria-hidden="true"></i>
-                  </button>
-              </div>
-          </form>
-          <!--end::Navbar Search-->
 
           <!--begin::End Navbar Links-->
           <ul class="navbar-nav ms-auto">
@@ -128,8 +110,7 @@
 
               <!--begin::Notifications Dropdown Menu-->
               <li class="nav-item dropdown">
-                  <a class="nav-link" data-bs-toggle="dropdown" href="#"
-                      aria-label="Notifications: 15 unread">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#" aria-label="Notifications: 15 unread">
                       <i class="bi bi-bell-fill"></i>
                       <span class="navbar-badge badge text-bg-warning">15</span>
                   </a>
@@ -229,18 +210,18 @@
               <!--begin::User Menu Dropdown-->
               <li class="nav-item dropdown user-menu">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                      <img src="{{ asset('assets/adminlte/img/user2-160x160.jpg') }}"
+                      <img src="{{ asset('assets/user_front/images/profile/eren.jpeg') }}"
                           class="user-image rounded-circle shadow" alt="Alexander Pierce" />
-                      <span class="d-none d-md-inline">Alexander Pierce</span>
+                      <span class="d-none d-md-inline">Rizki Suputra</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                       <!--begin::User Image-->
                       <li class="user-header text-bg-primary">
-                          <img src="{{ asset('assets/adminlte/img/user2-160x160.jpg') }}"
+                          <img src="{{ asset('assets/user_front/images/profile/eren.jpeg') }}"
                               class="rounded-circle shadow" alt="Alexander Pierce" />
                           <p>
-                              Alexander Pierce - Web Developer
-                              <small>Member since Nov. 2023</small>
+                              Rizki Suputra
+                              <small>Beginner Dev since Sep. 2025</small>
                           </p>
                       </li>
                       <!--end::User Image-->
@@ -264,7 +245,12 @@
                       <!--begin::Menu Footer-->
                       <li class="user-footer">
                           <a href="#" class="btn btn-outline-secondary">Profile</a>
-                          <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+
+                          <form action="{{ route('back_office.logout') }}" method="POST">
+                              @csrf
+                              <button class="btn btn-outline-danger float-end">Sign out</button>
+                          </form>
+
                       </li>
                       <!--end::Menu Footer-->
                   </ul>

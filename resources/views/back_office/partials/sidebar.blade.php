@@ -3,13 +3,13 @@
      <!--begin::Sidebar Brand-->
      <div class="sidebar-brand">
          <!--begin::Brand Link-->
-         <a href="./index.html" class="brand-link">
+         <a href="{{ route('home') }}" class="brand-link">
              <!--begin::Brand Image-->
-             <img src="{{ asset('assets/adminlte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+             <img src="{{ asset('assets/tailstore/images/porterfootwearlogo.png') }}" alt="AdminLTE Logo"
                  class="brand-image opacity-75 shadow" />
              <!--end::Brand Image-->
              <!--begin::Brand Text-->
-             <span class="brand-text fw-light">AdminLTE 4</span>
+             <span class="brand-text fw-light">Porter Footwear</span>
              <!--end::Brand Text-->
          </a>
          <!--end::Brand Link-->
