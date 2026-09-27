@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE v4 | Dashboard</title>
+    <title>Admin | Porter Footwear</title>
 
     <!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
     <script>
@@ -134,7 +134,7 @@
     <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="./js/adminlte.js"></script>
+    <script src="{{ asset('assets/back_office/js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>

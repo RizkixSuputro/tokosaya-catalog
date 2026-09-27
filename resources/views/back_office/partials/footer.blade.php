@@ -6,7 +6,7 @@
      <!--begin::Copyright-->
      <strong>
          Copyright &copy; 2014-2026&nbsp;
-         <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+         <a href="{{ route('home') }}" class="text-decoration-none">Porter Footwear</a>.
      </strong>
      All rights reserved.
      <!--end::Copyright-->

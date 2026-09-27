@@ -1,7 +1,8 @@
 @extends('back_office.layouts.app')
 
+@include('back_office.partials.pesan')
 
-@section('judul-halaman', 'dashboard admin')
+@section('judul-halaman', 'Dashboard Admin')
 
 
 @section('content')
