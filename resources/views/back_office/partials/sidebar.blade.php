@@ -31,7 +31,7 @@
              <!--begin::Sidebar Menu-->
              <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
                  <li class="nav-item">
-                     <a href="#" class="nav-link active">
+                     <a href="{{ route('back_office.dashboard') }}" class="nav-link">
                          <i class="nav-icon bi bi-speedometer"></i>
                          <p>
                              Dashboard
@@ -39,10 +39,19 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="{{ route('back_office.kategori.index') }}" class="nav-link active">
+                     <a href="{{ route('back_office.kategori.index') }}" class="nav-link">
                          <i class="nav-icon bi bi-speedometer"></i>
                          <p>
                              Kategori
+                         </p>
+                     </a>
+
+                 </li>
+                 <li class="nav-item">
+                     <a href="{{ route('back_office.produk.index') }}" class="nav-link">
+                         <i class="nav-icon bi bi-speedometer"></i>
+                         <p>
+                             Produk
                          </p>
                      </a>
 
