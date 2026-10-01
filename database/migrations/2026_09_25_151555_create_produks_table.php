@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('kode_produk', 50)->nullable();
             $table->text('deskripsi')->nullable();
 
+            $table->decimal('harga', 12, 2)->default(0);
+            $table->decimal('harga_coret', 12, 2)->nullable();
+
             $table->decimal('stok')->default(0);
             $table->integer('berat')->default(0)->comment('gram, untuk cek ongkir Minggu 10');
 
