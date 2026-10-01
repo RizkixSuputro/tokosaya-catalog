@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\ProdukDummy;
+use App\Models\Kategori;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    //
     public function index()
     {
+        $daftarProduk = Produk::with('kategori')
+            ->where('status', 'aktif')
+            ->latest()
+            ->paginate(12);
 
-        // memanggil data dari ProdukDummy
-        $daftarProduk = ProdukDummy::semua();
+        $daftarKategori = Kategori::orderBy('nama_kategori')->get();
 
-
-        return view('user-front.products.daftar-produk', compact('daftarProduk'));
+        return view('user-front.products.daftar-produk', compact('daftarProduk', 'daftarKategori'));
     }
 
-    public function show(int $id)
+    public function show(Produk $produk)
     {
-        $produk = ProdukDummy::cari($id);
+        // Produk yang dinonaktifkan tidak boleh dibuka pembeli
+        abort_if($produk->status !== 'aktif', 404);
 
-
-        // Kalau produk tidak ditemukan, tampilkan halaman 404
-        abort_if($produk === null, 404);
+        $produk->load('kategori');
 
         return view('user-front.products.detail-produk', compact('produk'));
     }
