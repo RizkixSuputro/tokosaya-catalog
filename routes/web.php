@@ -3,15 +3,18 @@
 use App\Http\Controllers\BackOffice\AuthController;
 use App\Http\Controllers\BackOffice\DashboardController;
 use App\Http\Controllers\BackOffice\KategoriController;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\BackOffice\ProdukController as ProdukBackOffice;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 
 Route::get('/produk', [ProdukController::class, 'index'])->name('daftar-produk');
-Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('detail-produk');
+// Cari produk berdasarkan slug
+Route::get('/produk/{produk:slug}', [ProdukController::class, 'show'])->name('produk.show');
 
 Route::get('/kontak', function () {
     return view('user-front.kontak');
@@ -32,4 +35,7 @@ Route::prefix('back-office')->name('back_office.')->group(function () {
         // semua function yang ada di KategoriController akan muncul di dalam kode routes
         Route::resource('kategori', KategoriController::class)->except(['show']);
     });
+
+    // semua function yang ada di ProdukController akan muncul didalam kode route
+    Route::resource('produk', ProdukBackOffice::class)->except(['show']);
 });
