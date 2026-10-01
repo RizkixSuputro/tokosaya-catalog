@@ -130,14 +130,20 @@
                         @foreach ($daftarProduk as $produk)
                             <!-- Product 1 -->
                             <div class="bg-white p-4 rounded-lg shadow">
-                                <img src="{{ $produk['gambar'] }}" alt="Product"
-                                    class="w-full object-cover mb-4 rounded-lg">
-                                <a href="{{ route('detail-produk', $produk['id']) }}"
-                                    class="text-lg font-semibold mb-2">{{ $produk['nama'] }}</a>
-                                <p class=" my-2">{{ $produk['kategori'] }}</p>
+                                @if ($produk->gambar)
+                                    <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
+                                        class="w-full object-cover mb-4 rounded-lg">
+                                @endif
+                                <a href="{{ route('produk.show', $produk) }}" class="text-lg font-semibold mb-2">
+                                    {{ $produk->nama_produk }}
+                                </a>
+                                <p class=" my-2">{{ $produk->kategori->nama_kategori }}</p>
                                 <div class="flex items-center mb-4">
-                                    <span class="text-lg font-bold text-primary">Rp {{ $produk['harga'] }}</span>
-                                    <span class="text-sm line-through ml-2">Rp {{ $produk['harga_coret'] }}</span>
+                                    <span class="text-lg font-bold text-primary">{{ $produk->hargaRupiah() }}</span>
+
+                                    @if ($produk->hargaCoretRupiah())
+                                        <span class="text-sm line-through ml-2">{{ $produk->hargaCoretRupiah() }}</span>
+                                    @endif
                                 </div>
                                 <button
                                     class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">Add
