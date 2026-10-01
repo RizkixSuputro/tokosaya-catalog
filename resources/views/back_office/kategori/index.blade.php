@@ -1,10 +1,12 @@
 @extends('back_office.layouts.app')
 
-@include('back_office.partials.pesan')
+
 
 @section('judul-halaman', 'Kategori')
 
 @section('content')
+
+    @include('back_office.partials.pesan')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title mb-0">Daftar Kategori</h3>
