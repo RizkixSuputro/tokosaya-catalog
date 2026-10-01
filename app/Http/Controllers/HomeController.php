@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\App\Data\ProdukDummy;
-use App\Data\ProdukDummy as DataProdukDummy;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,8 +10,11 @@ class HomeController extends Controller
     //
     public function home()
     {
-        //dari ProdukDummy
-        $produkPopuler = DataProdukDummy::semua();
+        $produkPopuler = Produk::with('kategori')
+            ->where('status', 'aktif')
+            ->latest()
+            ->take(4)
+            ->get();
 
         return view('user-front.home', compact('produkPopuler'));
     }

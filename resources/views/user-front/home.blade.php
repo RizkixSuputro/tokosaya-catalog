@@ -6,7 +6,7 @@
 @section('content')
 
     <!-- Slider -->
-    <section id="product-slider">
+    <section id="product-slider" class="mb-3">
         <div class="main-slider swiper-container">
             <div class="swiper-wrapper">
                 <!-- Slide 1 -->
@@ -53,54 +53,7 @@
         <div class="swiper-button-next"></div>
     </section>
 
-    <!-- Product banner section -->
-    <section id="product-banners">
-        <div class="container mx-auto py-10">
-            <div class="flex flex-wrap">
-                <!-- Category 1 -->
-                <div class="w-full sm:w-1/3 px-4 mb-8">
-                    <div class="category-banner relative overflow-hidden rounded-lg shadow-lg group">
-                        <img src="assets/images/cat-image1.jpg" alt="Category 1" class="w-full h-auto">
-                        <div class="absolute inset-0 bg-gray-light/50"></div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-                            <h2 class="text-2xl md:text-3xl font-bold mb-4">Men</h2>
-                            <a href="/"
-                                class="bg-primary hover:bg-transparent border border-transparent hover:border-white text-white hover:text-white font-semibold px-4 py-2 rounded-full inline-block">Shop
-                                now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Category 2 -->
-                <div class="w-full sm:w-1/3 px-4 mb-8">
-                    <div class="category-banner relative overflow-hidden rounded-lg shadow-lg group">
-                        <img src="assets/images/cat-image4.jpg" alt="Category 2" class="w-full h-auto">
-                        <div class="absolute inset-0 bg-gray-light/50"></div>
-                        <div
-                            class="category-text absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4 transition duration-300">
-                            <h2 class="text-2xl md:text-3xl font-bold mb-4">Women</h2>
-                            <a href="/"
-                                class="bg-primary hover:bg-transparent border border-transparent hover:border-white text-white hover:text-white font-semibold px-4 py-2 rounded-full inline-block">Shop
-                                now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Category 3 -->
-                <div class="w-full sm:w-1/3 px-4 mb-8">
-                    <div class="category-banner relative overflow-hidden rounded-lg shadow-lg group">
-                        <img src="assets/images/cat-image5.jpg" alt="Category 3" class="w-full h-auto">
-                        <div class="absolute inset-0 bg-gray-light/50"></div>
-                        <div
-                            class="category-text absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4 transition duration-300">
-                            <h2 class="text-2xl md:text-3xl font-bold mb-4">Accessories</h2>
-                            <a href="/"
-                                class="bg-primary hover:bg-transparent border border-transparent hover:border-white text-white hover:text-white font-semibold px-4 py-2 rounded-full inline-block">Shop
-                                now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Popular product section -->
     <section id="popular-products">
@@ -110,21 +63,21 @@
                 <!-- Product 1 -->
                 @foreach ($produkPopuler as $produk)
                     <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
-
                         <div class="bg-white p-3 rounded-lg shadow-lg">
-                            <img src="{{ $produk['gambar'] }}" alt="Product 1" class="w-full object-cover mb-4 rounded-lg">
-                            <a href="#" class="text-lg font-semibold mb-2">{{ $produk['nama'] }}</a>
-                            <p class="my-2"> {{ $produk['kategori'] }}</p>
+                            @if ($produk->gambar)
+                                <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
+                                    class="w-full object-cover mb-4 rounded-lg">
+                            @endif
+                            <a href="#" class="text-lg font-semibold mb-2">{{ $produk->nama_produk }}</a>
+                            <p class="my-2"> {{ $produk->kategori->nama_kategori }}</p>
                             <div class="flex items-center mb-4">
-                                <span class="text-lg font-bold text-primary"> Rp {{ $produk['harga_coret'] }}</span>
-                                <span class="text-sm line-through ml-2">Rp {{ $produk['harga'] }}</span>
+                                <span class="text-lg font-bold text-primary"> {{ $produk->hargaRupiah() }}</span>
+                                <span class="text-sm line-through ml-2">{{ $produk->hargaCoretRupiah() }}</span>
                             </div>
                             <button
                                 class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">Tambahkan
                                 ke keranjang</button>
                         </div>
-
-
                     </div>
                 @endforeach
             </div>
@@ -168,8 +121,7 @@
                 <!-- Product 3 -->
                 <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                     <div class="bg-white p-3 rounded-lg shadow-lg">
-                        <img src="assets/images/products/7.jpg" alt="Product 3"
-                            class="w-full object-cover mb-4 rounded-lg">
+                        <img src="assets/images/products/7.jpg" alt="Product 3" class="w-full object-cover mb-4 rounded-lg">
                         <a href="#" class="text-lg font-semibold mb-2">Yellow men's suit</a>
                         <p class="my-2">Men</p>
                         <div class="flex items-center mb-4">
@@ -184,8 +136,7 @@
                 <!-- Product 4 -->
                 <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8">
                     <div class="bg-white p-3 rounded-lg shadow-lg">
-                        <img src="assets/images/products/8.jpg" alt="Product 4"
-                            class="w-full object-cover mb-4 rounded-lg">
+                        <img src="assets/images/products/8.jpg" alt="Product 4" class="w-full object-cover mb-4 rounded-lg">
                         <a href="#" class="text-lg font-semibold mb-2">Red dress</a>
                         <p class="my-2">Women</p>
                         <div class="flex items-center mb-4">
