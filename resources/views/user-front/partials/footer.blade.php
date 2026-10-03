@@ -38,27 +38,27 @@
                  <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
                  <ul>
                      <li class="flex items-center mb-2">
-                         <img src="{{ asset('assets/tailstore/images/social_icons/facebook.svg') }}" alt="Facebook"
+                         <img src="{{ asset('assets/user_front/images/social_icons/facebook.svg') }}" alt="Facebook"
                              class="w-4 h-4 transition-transform transform hover:scale-110 mr-2">
                          <a href="#" class="hover:text-primary">Facebook</a>
                      </li>
                      <li class="flex items-center mb-2">
-                         <img src="{{ asset('assets/tailstore/images/social_icons/twitter.svg') }}" alt="Twitter"
+                         <img src="{{ asset('assets/user_front/images/social_icons/twitter.svg') }}" alt="Twitter"
                              class="w-4 h-4 transition-transform transform hover:scale-110 mr-2">
                          <a href="#" class="hover:text-primary">Twitter</a>
                      </li>
                      <li class="flex items-center mb-2">
-                         <img src="{{ asset('assets/tailstore/images/social_icons/instagram.svg') }}" alt="Instagram"
+                         <img src="{{ asset('assets/user_front/images/social_icons/instagram.svg') }}" alt="Instagram"
                              class="w-4 h-4 transition-transform transform hover:scale-110 mr-2">
                          <a href="#" class="hover:text-primary">Instagram</a>
                      </li>
                      <li class="flex items-center mb-2">
-                         <img src="{{ asset('assets/tailstore/images/social_icons/pinterest.svg') }}" alt="Instagram"
+                         <img src="{{ asset('assets/user_front/images/social_icons/pinterest.svg') }}" alt="Instagram"
                              class="w-4 h-4 transition-transform transform hover:scale-110 mr-2">
                          <a href="#" class="hover:text-primary">Pinterest</a>
                      </li>
                      <li class="flex items-center mb-2">
-                         <img src="{{ asset('assets/tailstore/images/social_icons/youtube.svg') }}" alt="Instagram"
+                         <img src="{{ asset('assets/user_front/images/social_icons/youtube.svg') }}" alt="Instagram"
                              class="w-4 h-4 transition-transform transform hover:scale-110 mr-2">
                          <a href="#" class="hover:text-primary">YouTube</a>
                      </li>
@@ -67,7 +67,7 @@
              <!-- Contact Information -->
              <div class="w-full sm:w-2/6 px-4 mb-8">
                  <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
-                 <p><img src="{{ asset('assets/tailstore/images/template-logo.png') }}" alt="Logo"
+                 <p><img src="{{ asset('assets/user_front/images/template-logo.png') }}" alt="Logo"
                          class="h-[60px] mb-4"></p>
                  <p>123 Street Name, Paris, France</p>
                  <p class="text-xl font-bold my-4">Phone: (123) 456-7890</p>
@@ -96,11 +96,11 @@
              </div>
              <!-- Payment Icons -->
              <div class="w-full lg:w-1/4 text-center lg:text-right">
-                 <img src="{{ asset('assets/tailstore/images/social_icons/paypal.svg') }}" alt="PayPal"
+                 <img src="{{ asset('assets/user_front/images/social_icons/paypal.svg') }}" alt="PayPal"
                      class="inline-block h-8 mr-2">
-                 <img src="{{ asset('assets/tailstore/images/social_icons/stripe.svg') }}" alt="Stripe"
+                 <img src="{{ asset('assets/user_front/images/social_icons/stripe.svg') }}" alt="Stripe"
                      class="inline-block h-8 mr-2">
-                 <img src="{{ asset('assets/tailstore/images/social_icons/visa.svg') }} alt="Visa"
+                 <img src="{{ asset('assets/user_front/images/social_icons/visa.svg') }} alt="Visa"
                      class="inline-block h-8">
              </div>
          </div>

@@ -4,7 +4,7 @@
          <!-- Left section: Logo -->
          <a href="index.html" class="flex items-center">
              <div>
-                 <img src="{{ asset('assets/tailstore/images/porterfootwearlogo.png') }}" alt="Logo"
+                 <img src="{{ asset('assets/user_front/images/porterfootwearlogo.png') }}" alt="Logo"
                      class="h-14 w-auto mr-4">
              </div>
          </a>
@@ -48,7 +48,7 @@
                          <!-- product item -->
                          <div class="flex items-center justify-between pb-4 border-b border-gray-line">
                              <div class="flex items-center">
-                                 <img src="{{ asset('assets/tailstore/images/single-product/1.jpg') }}" alt="Product"
+                                 <img src="{{ asset('assets/user_front/images/single-product/1.jpg') }}" alt="Product"
                                      class="h-12 w-12 object-cover rounded mr-2">
                                  <div>
                                      <p class="font-semibold">Summer black dress</p>
@@ -60,7 +60,7 @@
                          <!-- product item -->
                          <div class="flex items-center justify-between">
                              <div class="flex items-center">
-                                 <img src="assets/images/single-product/2.jpg" alt="Product"
+                                 <img src="{{ asset('assets/user_front/images/single-product/2.jpg') }}" alt="Product"
                                      class="h-12 w-12 object-cover rounded mr-2">
                                  <div>
                                      <p class="font-semibold">Black suit</p>
@@ -76,7 +76,7 @@
                  </div>
              </div>
              <a id="search-icon" href="javascript:void(0);" class="text-white hover:text-secondary group">
-                 <img src="{{ asset('assets/tailstore/images/search-icon.svg') }}" alt="Search"
+                 <img src="{{ asset('assets/user_front/images/search-icon.svg') }}" alt="Search"
                      class="h-6 w-6 transition-transform transform group-hover:scale-120">
              </a>
              <!-- Search field -->

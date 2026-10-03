@@ -78,16 +78,16 @@
                         <!-- Social sharing -->
                         <div class="flex space-x-4 my-6">
                             <a href="#" class="w-4 h-4 flex items-center justify-center">
-                                <img src="{{ asset('assets/tailstore/images/social_icons/facebook.svg') }}" alt="Facebook"
+                                <img src="{{ asset('assets/user_front/images/social_icons/facebook.svg') }}" alt="Facebook"
                                     class="w-4 h-4 transition-transform transform hover:scale-110">
                             </a>
                             <a href="#" class="w-4 h-4 flex items-center justify-center">
-                                <img src="{{ asset('assets/tailstore/images/social_icons/instagram.svg') }}"
+                                <img src="{{ asset('assets/user_front/images/social_icons/instagram.svg') }}"
                                     alt="Instagram" class="w-4 h-4 transition-transform transform hover:scale-110">
                             </a>
 
                             <a href="#" class="w-4 h-4 flex items-center justify-center">
-                                <img src="{{ asset('assets/tailstore/images/social_icons/twitter.svg') }}" alt="Twitter"
+                                <img src="{{ asset('assets/user_front/images/social_icons/twitter.svg') }}" alt="Twitter"
                                     class="w-4 h-4 transition-transform transform hover:scale-110">
                             </a>
                         </div>
