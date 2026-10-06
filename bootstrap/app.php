@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+
+        $middleware->web(append: [\App\Http\Middleware\SetBahasa::class]);
+
+        $middleware->redirectGuestsTo((fn() => route('back_office.login')));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
