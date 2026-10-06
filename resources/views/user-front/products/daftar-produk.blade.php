@@ -9,30 +9,21 @@
             <!-- Top Filter -->
             <div class="flex flex-col md:flex-row justify-between items-center py-4">
                 <div class="flex items-center space-x-4">
-                    <button
-                        class="bg-primary text-white hover:bg-transparent hover:text-primary border hover:border-primary py-2 px-4 rounded-full focus:outline-none">Show
-                        On
-                        Sale</button>
-                    <button
-                        class="bg-primary text-white hover:bg-transparent hover:text-primary border hover:border-primary py-2 px-4 rounded-full focus:outline-none">List
-                        View</button>
-                    <button
-                        class="bg-primary text-white hover:bg-transparent hover:text-primary border hover:border-primary py-2 px-4 rounded-full focus:outline-none">Grid
-                        View</button>
+                    <h1 class="text-lg font-semibold mb-6">{{ __('web.semua_produk') }}</h1>
                 </div>
                 <div class="flex mt-5 md:mt-0 space-x-4">
                     <div class="relative">
                         <select
                             class="block appearance-none w-full bg-white border  hover:border-primary px-4 py-2 pr-8 rounded-full shadow leading-tight focus:outline-none focus:shadow-outline">
-                            <option>Sort by Latest</option>
-                            <option>Sort by Popularity</option>
-                            <option>Sort by A-Z</option>
+                            <option>{{ __('web.urutkan_berdasar_terbaru') }}</option>
+                            <option>{{ __('web.urutkan_berdasar_popularitas') }}</option>
+                            <option>{{ __('web.urutkan_berdasar_abjad') }}</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-center px-2">
-                            <img id="arrow-down" class="h-4 w-4" src="/assets/images/filter-down-arrow.svg"
-                                alt="filter arrow">
-                            <img id="arrow-up" class="h-4 w-4 hidden" src="/assets/images/filter-up-arrow.svg"
-                                alt="filter arrow">
+                            <img id="arrow-down" class="h-4 w-4"
+                                src="{{ asset('assets/user_front/images/filter-down-arrow.svg') }}" alt="filter arrow">
+                            <img id="arrow-up" class="h-4 w-4 hidden"
+                                src="{{ asset('assets/user_front/images/filter-up-arrow.svg') }}" alt="filter arrow">
                         </div>
                     </div>
                 </div>
@@ -47,25 +38,25 @@
                 <div id="filters" class="w-full md:w-1/4 p-4 hidden md:block">
                     <!-- Category Filter -->
                     <div class="mb-6 pb-8 border-b border-gray-line">
-                        <h3 class="text-lg font-semibold mb-6">Category</h3>
+                        <h3 class="text-lg font-semibold mb-6">{{ __('web.kategori') }}</h3>
                         <div class="space-y-2">
                             <label class="flex items-center">
                                 <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Casual</span>
+                                <span class="ml-2">{{ __('web.kategori_pria') }}</span>
                             </label>
                             <label class="flex items-center">
                                 <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Kalcer</span>
+                                <span class="ml-2">{{ __('web.kategori_wanita') }}</span>
                             </label>
                             <label class="flex items-center">
                                 <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Unisex</span>
+                                <span class="ml-2">{{ __('web.kategori_unisex') }} </span>
                             </label>
                         </div>
                     </div>
                     <!-- Size Filter -->
                     <div class="mb-6 pb-8 border-b border-gray-line">
-                        <h3 class="text-lg font-semibold mb-6">Size</h3>
+                        <h3 class="text-lg font-semibold mb-6">{{ __('web.ukuran') }}</h3>
                         <div class="space-y-2">
                             <label class="flex items-center">
                                 <input type="checkbox" class="form-checkbox custom-checkbox">
@@ -80,43 +71,6 @@
                                 <span class="ml-2">44 - 48</span>
                             </label>
 
-                        </div>
-                    </div>
-                    <!-- Color Filter -->
-                    <div class="mb-6 pb-8 border-b border-gray-line">
-                        <h3 class="text-lg font-semibold mb-6">Color</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center custom-color-checkbox" data-color="#ff0000">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Red</span>
-                            </label>
-                            <label class="flex items-center custom-color-checkbox" data-color="#0000ff">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Blue</span>
-                            </label>
-                            <label class="flex items-center custom-color-checkbox" data-color="#00ff00">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">Green</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Rating Filter -->
-                    <div class="mb-6">
-                        <h3 class="text-lg font-semibold mb-6">Rating</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">★★★★★</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">★★★★☆</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox custom-checkbox">
-                                <span class="ml-2">★★★☆☆</span>
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -137,7 +91,8 @@
                                 <a href="{{ route('produk.show', $produk) }}" class="text-lg font-semibold mb-2">
                                     {{ $produk->nama_produk }}
                                 </a>
-                                <p class=" my-2">{{ $produk->kategori->nama_kategori }}</p>
+                                <p class=" my-2">{{ __('web.kategori_' . strtolower($produk->kategori->nama_kategori)) }}
+                                </p>
                                 <div class="flex items-center mb-4">
                                     <span class="text-lg font-bold text-primary">{{ $produk->hargaRupiah() }}</span>
 
@@ -146,8 +101,7 @@
                                     @endif
                                 </div>
                                 <button
-                                    class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">Add
-                                    to Cart</button>
+                                    class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">{{ __('web.tambah_keranjang') }}</button>
                             </div>
                         @endforeach
                     </div>

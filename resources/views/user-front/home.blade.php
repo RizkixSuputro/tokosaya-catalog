@@ -17,8 +17,7 @@
                         <p class="mb-4 text-white md:text-2xl">Temukan sepatu yang nyaman, modern, dan cocok <br>untuk
                             menemani setiap aktivitasmu.</p>
                         <a href="/"
-                            class="bg-primary hover:bg-transparent text-white hover:text-white border border-transparent hover:border-white font-semibold px-4 py-2 rounded-full inline-block">Belanja
-                            Sekarang</a>
+                            class="bg-primary hover:bg-transparent text-white hover:text-white border border-transparent hover:border-white font-semibold px-4 py-2 rounded-full inline-block">{{ __('web.belanja_sekarang') }}</a>
                     </div>
                 </div>
                 <!-- Slide 2 -->
@@ -29,8 +28,7 @@
                         <p class="mb-4 text-white md:text-2xl">Tunjukkan gayamu melalui setiap langkah <br>dengan desain
                             yang berani dan berbeda.</p>
                         <a href="/"
-                            class="bg-white hover:bg-transparent text-black hover:text-white font-semibold px-4 py-2 rounded-full inline-block border border-transparent hover:border-white">Belanja
-                            Sekarang</a>
+                            class="bg-white hover:bg-transparent text-black hover:text-white font-semibold px-4 py-2 rounded-full inline-block border border-transparent hover:border-white">{{ __('web.belanja_sekarang') }}</a>
                     </div>
                 </div>
                 <!-- Slide 3 -->
@@ -42,8 +40,7 @@
                             setiap perjalananmu.
                         </p>
                         <a href="/"
-                            class="bg-primary hover:bg-transparent text-white hover:text-white border border-transparent hover:border-white font-semibold px-4 py-2 rounded-full inline-block">Shop
-                            now</a>
+                            class="bg-primary hover:bg-transparent text-white hover:text-white border border-transparent hover:border-white font-semibold px-4 py-2 rounded-full inline-block">{{ __('web.belanja_sekarang') }}</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +55,7 @@
     <!-- Popular product section -->
     <section id="popular-products">
         <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-8">Popular products</h2>
+            <h2 class="text-2xl font-bold mb-8">{{ __('web.produk_populer') }}</h2>
             <div class="flex flex-wrap -mx-4">
                 <!-- Product 1 -->
                 @foreach ($produkPopuler as $produk)
@@ -69,14 +66,14 @@
                                     class="w-full object-cover mb-4 rounded-lg">
                             @endif
                             <a href="#" class="text-lg font-semibold mb-2">{{ $produk->nama_produk }}</a>
-                            <p class="my-2"> {{ $produk->kategori->nama_kategori }}</p>
+                            <p class=" my-2">{{ __('web.kategori_' . strtolower($produk->kategori->nama_kategori)) }}
+                            </p>
                             <div class="flex items-center mb-4">
                                 <span class="text-lg font-bold text-primary"> {{ $produk->hargaRupiah() }}</span>
                                 <span class="text-sm line-through ml-2">{{ $produk->hargaCoretRupiah() }}</span>
                             </div>
                             <button
-                                class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">Tambahkan
-                                ke keranjang</button>
+                                class="bg-primary border border-transparent hover:bg-transparent hover:border-primary text-white hover:text-primary font-semibold py-2 px-4 rounded-full w-full">{{ __('web.tambah_keranjang') }}</button>
                         </div>
                     </div>
                 @endforeach

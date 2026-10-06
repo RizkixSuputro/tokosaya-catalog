@@ -22,7 +22,7 @@
 
                 <!-- Image Section -->
                 <div class="flex justify-center mb-5">
-                    <img src="{{ asset('assets/images/hero/hero2.png') }}" alt="Contact illustration"
+                    <img src="{{ asset('assets/user_front/images/hero/hero2.png') }}" alt="Contact illustration"
                         class="h-auto w-full max-w-lg object-contain" />
                 </div>
 
@@ -51,7 +51,7 @@
                                 </div>
 
                                 <h4 class="mb-3 text-lg font-semibold text-gray-900">
-                                    Jam Buka
+                                    {{ __('web.jam_buka') }}
                                 </h4>
 
                                 <div class="text-sm leading-6 text-gray-600">
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <h4 class="mb-3 text-lg font-semibold text-gray-900">
-                                    Alamat
+                                    {{ __('web.alamat') }}
                                 </h4>
 
                                 <address class="text-sm leading-6 text-gray-600 not-italic">
@@ -116,7 +116,7 @@
                                 </div>
 
                                 <h4 class="mb-3 text-lg font-semibold text-gray-900">
-                                    Hubungi Kami
+                                    {{ __('web.hubungi_kami') }}
                                 </h4>
 
                                 <div class="text-sm leading-6 text-gray-600">

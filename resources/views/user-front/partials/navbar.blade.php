@@ -22,25 +22,32 @@
          <!-- Center section: Menu -->
          <nav class="hidden lg:flex md:flex-grow justify-center">
              <ul class="flex justify-center space-x-4 text-white">
-                 <li><a href="{{ route('home') }}" class="hover:text-secondary font-semibold">Beranda</a></li>
+                 <li><a href="{{ route('home') }}" class="hover:text-secondary font-semibold">
+                         {{ __('web.beranda') }}</a></li>
 
 
 
-                 <li><a href="{{ route('daftar-produk') }}" class="hover:text-secondary font-semibold">Produk</a></li>
-                 <li><a href="{{ route('kontak') }}" class="hover:text-secondary font-semibold">Kontak Kami</a></li>
-                 <li><a href="checkout.html" class="hover:text-secondary font-semibold">Checkout</a></li>
+                 <li><a href="{{ route('daftar-produk') }}"
+                         class="hover:text-secondary font-semibold">{{ __('web.produk') }}</a></li>
+                 <li><a href="{{ route('kontak') }}"
+                         class="hover:text-secondary font-semibold">{{ __('web.kontak_kami') }}</a></li>
+                 <li><a href="checkout.html"
+                         class="hover:text-secondary font-semibold">{{ __('web.lihat_keranjang') }}</a>
+                 </li>
              </ul>
          </nav>
 
          <!-- Right section: Buttons (for desktop) -->
          <div class="hidden lg:flex items-center space-x-4 relative">
+             @include('user-front.partials.pengalih-bahasa')
              <a href="register.html"
-                 class="bg-primary border border-primary hover:bg-transparent text-white hover:text-primary font-semibold px-4 py-2 rounded-full inline-block">Register</a>
+                 class="bg-primary border border-primary hover:bg-transparent text-white hover:text-primary font-semibold px-4 py-2 rounded-full inline-block">{{ __('web.daftar') }}</a>
              <a href="register.html"
-                 class="bg-primary border border-primary hover:bg-transparent text-white hover:text-primary font-semibold px-4 py-2 rounded-full inline-block">Login</a>
+                 class="bg-primary border border-primary hover:bg-transparent text-white hover:text-primary font-semibold px-4 py-2 rounded-full inline-block">{{ __('web.masuk') }}</a>
              <div class="relative group cart-wrapper">
                  <a href="/cart.html">
-                     <img src="assets/images/cart-shopping.svg" alt="Cart" class="h-6 w-6 group-hover:scale-120">
+                     <img src="{{ asset('assets/user_front/images/cart-shopping.svg') }}" alt="Cart"
+                         class="h-6 w-6 group-hover:scale-120">
                  </a>
                  <!-- Cart dropdown -->
                  <div class="absolute right-0 mt-1 w-80 bg-white shadow-lg p-4 rounded hidden group-hover:block">
@@ -105,6 +112,7 @@
          <a href="register.html"
              class="bg-primary hover:bg-transparent text-white hover:text-primary border border-primary font-semibold px-4 py-2 rounded-full flex items-center justify-center min-w-[110px]">Cart
              -&nbsp;<span>5</span>&nbsp;items</a>
+
      </div>
      <!-- Search field -->
      <div class="  top-full right-0 mt-2 w-full bg-white shadow-lg p-2 rounded">
