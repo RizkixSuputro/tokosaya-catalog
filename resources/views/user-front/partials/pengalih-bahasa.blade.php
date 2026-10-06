@@ -9,5 +9,4 @@
         class="{{ app()->getLocale() === 'en' ? 'bg-primary text-white' : 'text-white' }} font-semibold text-sm px-3 py-1 rounded-full">
         EN
     </a>
-
 </div>
