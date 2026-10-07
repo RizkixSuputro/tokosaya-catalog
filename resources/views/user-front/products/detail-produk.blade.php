@@ -63,6 +63,7 @@
                                         {{ $produk->kode_produk }}</strong>
                                 </p>
                                 <p class="mb-2">{{ __('web.kondisi') }} : <strong> {{ $produk->status }}</strong></p>
+                                <p class="mb-2">{{ __('web.stok') }} : <strong> {{ $produk->stok }}</strong></p>
                             </div>
                             <div class="text-2xl font-semibold mb-8">{{ $produk->hargaRupiah() }}</div>
                             <div class="flex items-center mb-8">

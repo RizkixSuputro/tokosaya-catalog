@@ -97,21 +97,23 @@
 
  <!-- Mobile menu -->
  <nav id="mobile-menu-placeholder" class="mobile-menu hidden flex-col items-center space-y-8 lg:hidden">
+
      <ul class="w-full">
-         <li><a href="index.html" class="hover:text-secondary font-bold block py-2">Beranda</a></li>
-         <li><a href="{{ route('daftar-produk') }}" class="hover:text-secondary font-bold block py-2">Shop</a></li>
-         <li><a href="single-product-page.html" class="hover:text-secondary font-bold block py-2">Product</a></li>
-         <li><a href="404.html" class="hover:text-secondary font-bold block py-2">404 page</a></li>
-         <li><a href="checkout.html" class="hover:text-secondary font-bold block py-2">Checkout</a></li>
+         <li><a href="{{ route('home') }}" class="hover:text-secondary font-semibold">
+                 {{ __('web.beranda') }}</a></li>
+         <li><a href="{{ route('daftar-produk') }}"
+                 class="hover:text-secondary font-semibold">{{ __('web.produk') }}</a></li>
+         <li><a href="{{ route('kontak') }}"
+                 class="hover:text-secondary font-semibold">{{ __('web.kontak_kami') }}</a></li>
+         <li><a href="checkout.html" class="hover:text-secondary font-semibold">{{ __('web.lihat_keranjang') }}</a>
+         </li>
      </ul>
      <div class="flex flex-col mt-6 space-y-2 items-center">
          <a href="register.html"
              class="bg-primary hover:bg-transparent text-white hover:text-primary border border-primary font-semibold px-4 py-2 rounded-full flex items-center justify-center min-w-[110px]">Register</a>
          <a href="register.html"
              class="bg-primary hover:bg-transparent text-white hover:text-primary border border-primary font-semibold px-4 py-2 rounded-full flex items-center justify-center min-w-[110px]">Login</a>
-         <a href="register.html"
-             class="bg-primary hover:bg-transparent text-white hover:text-primary border border-primary font-semibold px-4 py-2 rounded-full flex items-center justify-center min-w-[110px]">Cart
-             -&nbsp;<span>5</span>&nbsp;items</a>
+         @include('user-front.partials.pengalih-bahasa')
 
      </div>
      <!-- Search field -->
