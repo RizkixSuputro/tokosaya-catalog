@@ -35,7 +35,7 @@ return [
     'ulasan' => 'Review',
     'tulis_ulasan' => 'Write Review',
     'kondisi' => 'status',
-    'stok' => 'stock',
+    'stok' => 'stock:',
     'kode_produk' => 'Code Product',
     'deskripsi_produk' => 'Product Description',
 
