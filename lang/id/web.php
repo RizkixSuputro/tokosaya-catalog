@@ -33,6 +33,7 @@ return [
     'ulasan' => 'Ulasan',
     'tulis_ulasan' => 'Tulis Ulasan',
     'kondisi' => 'kondisi',
+    'stok' => 'stok',
     'kode_produk' => 'Kode Produk',
     'deskripsi_produk' => 'Deskripsi Produk',
 
