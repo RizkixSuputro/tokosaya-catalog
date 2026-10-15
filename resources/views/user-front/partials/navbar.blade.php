@@ -45,42 +45,17 @@
              <a href="register.html"
                  class="bg-primary border border-primary hover:bg-transparent text-white hover:text-primary font-semibold px-4 py-2 rounded-full inline-block">{{ __('web.masuk') }}</a>
              <div class="relative group cart-wrapper">
-                 <a href="/cart.html">
+                 @if ($jumlahKeranjang > 0)
+                     <span class="bg-primary text-white text-xs font-bold rounded-full px-2 py-1 ml-1">
+                         {{ $jumlahKeranjang }}
+                     </span>
+                 @endif
+                 <a href="{{ route('keranjang.index') }}">
                      <img src="{{ asset('assets/user_front/images/cart-shopping.svg') }}" alt="Cart"
                          class="h-6 w-6 group-hover:scale-120">
                  </a>
                  <!-- Cart dropdown -->
-                 <div class="absolute right-0 mt-1 w-80 bg-white shadow-lg p-4 rounded hidden group-hover:block">
-                     <div class="space-y-4">
-                         <!-- product item -->
-                         <div class="flex items-center justify-between pb-4 border-b border-gray-line">
-                             <div class="flex items-center">
-                                 <img src="{{ asset('assets/user_front/images/single-product/1.jpg') }}" alt="Product"
-                                     class="h-12 w-12 object-cover rounded mr-2">
-                                 <div>
-                                     <p class="font-semibold">Summer black dress</p>
-                                     <p class="text-sm">Quantity: 1</p>
-                                 </div>
-                             </div>
-                             <p class="font-semibold">$25.00</p>
-                         </div>
-                         <!-- product item -->
-                         <div class="flex items-center justify-between">
-                             <div class="flex items-center">
-                                 <img src="{{ asset('assets/user_front/images/single-product/2.jpg') }}" alt="Product"
-                                     class="h-12 w-12 object-cover rounded mr-2">
-                                 <div>
-                                     <p class="font-semibold">Black suit</p>
-                                     <p class="text-sm">Quantity: 1</p>
-                                 </div>
-                             </div>
-                             <p class="font-semibold">$125.00</p>
-                         </div>
-                     </div>
-                     <a href="/cart.html"
-                         class="block text-center mt-4 border border-primary bg-primary hover:bg-transparent text-white hover:text-primary py-2 rounded-full font-semibold">Go
-                         to Cart</a>
-                 </div>
+
              </div>
              <a id="search-icon" href="javascript:void(0);" class="text-white hover:text-secondary group">
                  <img src="{{ asset('assets/user_front/images/search-icon.svg') }}" alt="Search"
