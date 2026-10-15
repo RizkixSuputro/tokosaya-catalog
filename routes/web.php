@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\BackOffice\ProdukController as ProdukBackOffice;
 use App\Http\Controllers\BahasaController;
+use App\Http\Controllers\KeranjangController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -21,6 +22,15 @@ Route::get('/kontak', function () {
 })->name('kontak');
 
 Route::get('/bahasa/{kode}', [BahasaController::class, 'ganti'])->name('bahasa.ganti');
+
+Route::controller(KeranjangController::class)->prefix('keranjang')->name('keranjang.')->group(function () {
+
+    Route::get('/',                    'index')->name('index');
+    Route::post('/tambah/{produk}',    'tambah')->name('tambah');
+    Route::patch('/{produk}',          'ubah')->name('ubah');
+    Route::delete('/{produk}',         'hapus')->name('hapus');
+    Route::delete('/',                 'kosongkan')->name('kosongkan');
+});
 
 Route::prefix('back-office')->name('back_office.')->group(function () {
 
