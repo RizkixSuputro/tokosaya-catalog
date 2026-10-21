@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Models\User;
-use App\Data\ProdukDummy;
+use App\Models\Kategori;
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,9 +15,9 @@ class DashboardController extends Controller
     public function index()
     {
         $ringkasan = [
-            'produk' => 3,
-            'kategori' => 3,
-            'pesanan_baru' => 0,
+            'produk'       => Produk::count(),
+            'kategori'     => Kategori::count(),
+            'pesanan_baru' => Pesanan::where('status', 'baru')->count(),
             'admin_aktif'  => User::where('role', 'admin')->count(),
         ];
 
