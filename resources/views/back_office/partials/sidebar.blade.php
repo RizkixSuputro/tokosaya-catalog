@@ -57,6 +57,14 @@
 
                  </li>
 
+                 <li class="nav-item">
+                     <a href="{{ route('back_office.pesanan.index') }}"
+                         class="nav-link {{ request()->routeIs('back_office.pesanan.*') ? 'active' : '' }}">
+                         <i class="nav-icon bi bi-receipt"></i>
+                         <p>Pesanan</p>
+                     </a>
+                 </li>
+
              </ul>
              <!--end::Sidebar Menu-->
 
