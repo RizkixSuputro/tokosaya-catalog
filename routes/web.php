@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\BackOffice\PesananController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/produk', [ProdukController::class, 'index'])->name('daftar-produk');
@@ -37,10 +38,17 @@ Route::controller(KeranjangController::class)->prefix('keranjang')->name('keranj
 
 // checkout controller
 Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout.')->group(function () {
-    Route::get('/',        'index')->name('index');
-    Route::post('/',       'proses')->name('proses');
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'proses')->name('proses');
     Route::get('/selesai/{pesanan:kode_pesanan}', 'selesai')->name('selesai');
+
+    // ---- baru di Pertemuan 9 ----
+    Route::get('/belum-bayar/{pesanan:kode_pesanan}', 'belumBayar')->name('belum_bayar');
+    Route::post('/bayar/{pesanan:kode_pesanan}', 'bayar')
+        ->middleware('throttle:5,1')
+        ->name('bayar');
 });
+
 
 
 // back office
