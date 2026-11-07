@@ -19,7 +19,54 @@ class Pesanan extends Model
         'ongkir',
         'total',
         'status',
+        // ---- baru di Pertemuan 9 ----
+        'status_bayar',
+        'midtrans_order_id',
+        'midtrans_redirect_url',
+        'batas_bayar',
+        'metode_bayar',
+        'dibayar_pada',
+        'stok_dikembalikan',
     ];
+
+    // Model Pesanan dari Pertemuan 7 belum punya $casts — tambahkan
+    protected $casts = [
+        'batas_bayar'       => 'datetime',
+        'dibayar_pada'      => 'datetime',
+        'stok_dikembalikan' => 'boolean',
+    ];
+
+    /** Riwayat notifikasi pembayaran pesanan ini */
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class)->latest();
+    }
+
+    /** Benar bila uangnya sudah masuk */
+    public function sudahLunas(): bool
+    {
+        return $this->status_bayar === 'lunas';
+    }
+
+    /** Benar bila pesanan ini masih boleh dibayar */
+    public function bisaDibayar(): bool
+    {
+        return in_array($this->status_bayar, ['belum_bayar', 'pending'], true)
+            && $this->status !== 'batal';
+    }
+
+    /** Label (dua bahasa, kuncinya ditambahkan di J.1) dan jenis warnanya */
+    public function labelBayar(): array
+    {
+        return match ($this->status_bayar) {
+            'lunas'       => [__('web.lunas'),         'success'],
+            'pending'     => [__('web.menunggu'),      'warning'],
+            'gagal'       => [__('web.gagal'),         'danger'],
+            'kedaluwarsa' => [__('web.kedaluwarsa'),   'secondary'],
+            default       => [__('web.belum_dibayar'), 'secondary'],
+        };
+    }
+
 
     /** Satu pesanan punya banyak baris rincian */
     public function detail()
