@@ -194,20 +194,20 @@ img.cursor-pointer:hover {
 /* single product tabs */
 .tab {
     padding: 0.5rem 1rem;
-    color: #010717; 
+    color: #010717;
     border-bottom-width: 2px;
     border-color: transparent;
     font-size: 1rem;
-    font-weight: 500; 
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 .tab:hover {
-    color: #323232; 
-    border-color: #ff0042; 
+    color: #323232;
+    border-color: #ff0042;
 }
 .tab.active {
-    color: #ff0042; 
+    color: #ff0042;
     border-color: #ff0042;
 }
 .tab-content {
@@ -237,3 +237,16 @@ img.cursor-pointer:hover {
     border-color: #ff0042;
 }
 
+/* ---------- Penanda status pembayaran (Pertemuan 9) ---------- */
+.penanda {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 9999px;
+    padding: .3rem .9rem;
+    font-size: .875rem;
+    font-weight: 700;
+}
+.penanda-lunas  { background: #e7f7ed; border-color: #8fd3a8; color: #1b7a43; }
+.penanda-tunggu { background: #fff6e0; border-color: #f0cf7a; color: #8a5a00; }
+.penanda-gagal  { background: #fdeaea; border-color: #eda3a3; color: #a01b1b; }
+.penanda-netral { background: #f2f2f3; border-color: #d8d8dc; color: #4c4d56; }

@@ -9,4 +9,9 @@
         class="{{ app()->getLocale() === 'en' ? 'bg-primary text-white' : 'text-white' }} font-semibold text-sm px-3 py-1 rounded-full">
         EN
     </a>
+
+    <a href="{{ route('bahasa.ganti', 'thai') }}"
+        class="{{ app()->getLocale() === 'thai' ? 'bg-primary text-white' : 'text-white' }} font-semibold text-sm px-3 py-1 rounded-full">
+        thai
+    </a>
 </div>
