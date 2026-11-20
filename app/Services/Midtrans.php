@@ -152,4 +152,122 @@ class Midtrans
 
         return $pesanan->midtrans_redirect_url;
     }
+
+    /**
+     * Menerjemahkan status Midtrans menjadi status_bayar kita,
+     * lalu menerapkannya. Aman dijalankan berulang kali dan bersamaan.
+     *
+     * Dipakai oleh webhook maupun pemeriksaan status manual (G.6).
+     */
+    public static function terapkan(Pesanan $pesanan, array $muatan): string
+    {
+        return DB::transaction(function () use ($pesanan, $muatan) {
+
+            // ---------- 1. Kunci baris pesanan ----------
+            // Dua notifikasi yang datang bersamaan harus antre,
+            // bukan membaca keadaan lama yang sama
+            $pesanan = Pesanan::lockForUpdate()->findOrFail($pesanan->id);
+            $lama    = $pesanan->status_bayar;
+
+            // ---------- 2. Menerjemahkan ----------
+            $status = $muatan['transaction_status'] ?? '';
+            $fraud  = $muatan['fraud_status'] ?? 'accept';
+
+            $baru = match (true) {
+                $status === 'settlement'                        => 'lunas',
+                $status === 'capture' && $fraud === 'accept'     => 'lunas',
+                $status === 'capture' && $fraud === 'challenge'  => 'pending',
+                $status === 'capture' && $fraud === 'deny'       => 'gagal',
+                $status === 'pending'                           => 'pending',
+                $status === 'expire'                            => 'kedaluwarsa',
+                in_array($status, ['deny', 'cancel', 'failure'], true) => 'gagal',
+
+                // authorize, refund, chargeback: tidak kita tangani di
+                // mata kuliah ini, status dibiarkan apa adanya
+                default => $lama,
+            };
+
+            // ---------- 3. Keadaan tidak boleh mundur ----------
+            // Lunas hanya boleh berubah karena pembalikan (settlement → deny)
+            if ($lama === 'lunas' && $status !== 'deny') {
+                return 'lunas';
+            }
+
+            // Gagal dan kedaluwarsa tidak boleh kembali menjadi pending
+            if (in_array($lama, ['gagal', 'kedaluwarsa'], true) && $baru === 'pending') {
+                return $lama;
+            }
+
+            // ---------- 4. Menerapkan ----------
+            $pesanan->status_bayar = $baru;
+
+            if ($baru === 'lunas') {
+                $pesanan->metode_bayar = $muatan['payment_type'] ?? null;
+                $pesanan->dibayar_pada = $pesanan->dibayar_pada ?? now();
+
+                if ($pesanan->stok_dikembalikan) {
+                    // Pembeli membayar halaman lama setelah pesanannya dibatalkan.
+                    // Uangnya masuk, tetapi stoknya sudah dilepas — perlu manusia
+                    Log::warning('Pesanan lunas setelah stoknya dikembalikan', [
+                        'kode_pesanan' => $pesanan->kode_pesanan,
+                    ]);
+                }
+            }
+
+            if (in_array($baru, ['gagal', 'kedaluwarsa'], true)) {
+                $pesanan->kembalikanStok();
+
+                // Pesanan yang belum diproses ikut dibatalkan
+                if ($pesanan->status === 'baru') {
+                    $pesanan->status = 'batal';
+                }
+
+                if ($lama === 'lunas') {
+                    $pesanan->dibayar_pada = null;
+
+                    Log::warning('Pembayaran dibalik oleh Midtrans', [
+                        'kode_pesanan' => $pesanan->kode_pesanan,
+                    ]);
+                }
+            }
+
+            $pesanan->save();
+
+            return $baru;
+        });
+    }
+
+    /**
+     * Membaca status terkini sebuah transaksi dari Midtrans,
+     * lalu menerapkannya lewat terapkan().
+     */
+    public static function periksaStatus(Pesanan $pesanan): string
+    {
+        if (! $pesanan->midtrans_order_id) {
+            return $pesanan->status_bayar;
+        }
+
+        try {
+            $jawaban = Http::withBasicAuth(config('midtrans.server_key'), '')
+                ->acceptJson()
+                ->timeout(15)
+                ->get(config('midtrans.api_url')
+                    . '/v2/' . $pesanan->midtrans_order_id . '/status');
+        } catch (ConnectionException $e) {
+            Log::warning('Midtrans tidak dapat dihubungi saat memeriksa status', [
+                'order_id' => $pesanan->midtrans_order_id,
+                'galat'    => $e->getMessage(),
+            ]);
+
+            return $pesanan->status_bayar;
+        }
+
+        // 404 adalah jawaban wajar: pembeli belum memilih metode,
+        // jadi di sisi Midtrans memang belum ada transaksi
+        if ($jawaban->failed() || $jawaban->json('status_code') === '404') {
+            return $pesanan->status_bayar;
+        }
+
+        return self::terapkan($pesanan, $jawaban->json());
+    }
 }

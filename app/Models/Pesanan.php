@@ -90,4 +90,27 @@ class Pesanan extends Model
             'batal'    => 'text-bg-secondary',
         };
     }
+
+    /**
+     * Mengembalikan stok pesanan ini ke etalase — paling banyak satu kali.
+     * Panggil di dalam DB::transaction, lalu save() pesanannya.
+     */
+    public function kembalikanStok(): void
+    {
+        if ($this->stok_dikembalikan) {
+            return;
+        }
+
+        $this->loadMissing('detail');
+
+        foreach ($this->detail as $baris) {
+            if (! $baris->produk_id) {
+                continue;   // produknya sudah dihapus, tidak ada yang bisa dikembalikan
+            }
+
+            Produk::lockForUpdate()->find($baris->produk_id)?->increment('stok', $baris->jumlah);
+        }
+
+        $this->stok_dikembalikan = true;
+    }
 }
