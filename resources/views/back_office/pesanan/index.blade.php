@@ -23,6 +23,7 @@
                         <th>Kota</th>
                         <th>Jumlah</th>
                         <th>Total</th>
+                        <th>Pembayaran</th>
                         <th>Status</th>
                         <th>Tanggal</th>
                         <th style="width:120px">Aksi</th>
@@ -31,6 +32,7 @@
                 <tbody>
 
                     @forelse ($daftarPesanan as $nomor => $pesanan)
+                        @php [$label, $jenis] = $pesanan->labelBayar(); @endphp
                         <tr>
                             <td>{{ $daftarPesanan->firstItem() + $nomor }}</td>
                             <td><code>{{ $pesanan->kode_pesanan }}</code></td>
@@ -38,6 +40,14 @@
                             <td>{{ $pesanan->kota }}</td>
                             <td>{{ $pesanan->detail_sum_jumlah }} item</td>
                             <td class="fw-bold">{{ $pesanan->totalRupiah() }}</td>
+                            <td>
+                                <span class="badge text-bg-{{ $jenis }}">{{ $label }}</span>
+
+                                @if ($pesanan->metode_bayar)
+                                    <small class="d-block text-secondary">{{ $pesanan->metode_bayar }}</small>
+                                @endif
+                            </td>
+
                             <td>
                                 <span class="badge {{ $pesanan->warnaStatus() }}">
                                     {{ ucfirst($pesanan->status) }}

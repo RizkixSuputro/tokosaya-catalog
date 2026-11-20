@@ -134,6 +134,87 @@
                 </div>
             </div>
 
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Pembayaran</h3>
+                </div>
+
+                <div class="card-body">
+                    @php [$label, $jenis] = $pesanan->labelBayar(); @endphp
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge text-bg-{{ $jenis }}">{{ $label }}</span>
+                        </dd>
+
+                        <dt class="col-sm-4">Metode</dt>
+                        <dd class="col-sm-8">{{ $pesanan->metode_bayar ?? '—' }}</dd>
+
+                        <dt class="col-sm-4">Waktu Bayar</dt>
+                        <dd class="col-sm-8">
+                            {{ $pesanan->dibayar_pada?->format('d/m/Y H:i') ?? '—' }}
+                        </dd>
+
+                        <dt class="col-sm-4">Order ID Midtrans</dt>
+                        <dd class="col-sm-8">
+                            <code>{{ $pesanan->midtrans_order_id ?? '—' }}</code>
+                        </dd>
+
+                        <dt class="col-sm-4">Stok Dikembalikan</dt>
+                        <dd class="col-sm-8">{{ $pesanan->stok_dikembalikan ? 'Ya' : 'Tidak' }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            {{-- Riwayat notifikasi --}}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Riwayat Notifikasi Midtrans</h3>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Status Transaksi</th>
+                                    <th>Fraud</th>
+                                    <th>Metode</th>
+                                    <th>Tanda Tangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($pesanan->pembayaran as $catatan)
+                                    <tr>
+                                        <td>{{ $catatan->created_at->format('d/m/Y H:i:s') }}</td>
+                                        <td>{{ $catatan->transaction_status ?? '—' }}</td>
+                                        <td>{{ $catatan->fraud_status ?? '—' }}</td>
+                                        <td>{{ $catatan->payment_type ?? '—' }}</td>
+                                        <td>
+                                            @if ($catatan->signature_sah)
+                                                <span class="badge text-bg-success">Sah</span>
+                                            @else
+                                                <span class="badge text-bg-danger">Tidak Sah</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-secondary py-3">
+                                            Belum ada notifikasi masuk
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
