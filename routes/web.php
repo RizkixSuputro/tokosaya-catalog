@@ -9,6 +9,7 @@ use App\Http\Controllers\BackOffice\ProdukController as ProdukBackOffice;
 use App\Http\Controllers\BahasaController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MidtransNotifikasiController;
 use App\Http\Controllers\BackOffice\PesananController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +48,14 @@ Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout
     Route::post('/bayar/{pesanan:kode_pesanan}', 'bayar')
         ->middleware('throttle:5,1')
         ->name('bayar');
+
+    Route::post('/periksa-bayar/{pesanan:kode_pesanan}', 'periksaBayar')
+        ->middleware('throttle:5,1')
+        ->name('periksa');
 });
 
+Route::post('/midtrans/notifikasi', MidtransNotifikasiController::class)
+    ->name('midtrans.notifikasi');
 
 
 // back office
