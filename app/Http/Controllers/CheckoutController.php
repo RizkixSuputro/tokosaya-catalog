@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use RuntimeException;
 use App\Services\Midtrans;
+use App\Services\RajaOngkir;
+use App\Models\Kecamatan;
+use Illuminate\Support\Arr;
 
 class CheckoutController extends Controller
 {
@@ -17,17 +20,28 @@ class CheckoutController extends Controller
     {
         $daftarItem = Keranjang::daftarItem();
 
-        // Tidak boleh checkout kalau keranjang kosong
         if ($daftarItem->isEmpty()) {
-            return redirect()
-                ->route('keranjang.index')
+            return redirect()->route('keranjang.index')
                 ->with('gagal', 'Keranjang Anda masih kosong.');
         }
 
         $totalHarga = Keranjang::totalHarga();
+        $totalBerat = Keranjang::totalBerat();
 
-        return view('user-front.checkout.index', compact('daftarItem', 'totalHarga'));
+        // ---- baru di Pertemuan 11 ----
+        try {
+            $daftarProvinsi = RajaOngkir::provinsi();
+        } catch (RuntimeException $e) {
+            $daftarProvinsi = collect();
+            session()->now('gagal', __('web.ongkir_gagal'));
+        }
+
+        return view(
+            'user-front.checkout.index',
+            compact('daftarItem', 'totalHarga', 'totalBerat', 'daftarProvinsi')
+        );
     }
+
 
     public function proses(Request $request)
     {
@@ -44,7 +58,11 @@ class CheckoutController extends Controller
             'email'        => ['required', 'email', 'max:100'],
             'telepon'      => ['required', 'string', 'min:9', 'max:20', 'regex:/^[0-9+\-\s]+$/'],
             'alamat'       => ['required', 'string', 'min:10', 'max:500'],
-            'kota'         => ['required', 'string', 'max:100'],
+            // ---- diganti di Pertemuan 11: kota bukan lagi ketikan bebas ----
+            'provinsi_id'  => ['required', 'integer', 'exists:provinsis,id'],
+            'kota_id'      => ['required', 'integer', 'exists:kotas,id'],
+            'kecamatan_id' => ['required', 'integer', 'exists:kecamatans,id'],
+            'layanan'      => ['required', 'string', 'max:60'],
             'kode_pos'     => ['nullable', 'string', 'max:10'],
             'catatan'      => ['nullable', 'string', 'max:500'],
         ], [
@@ -57,13 +75,54 @@ class CheckoutController extends Controller
             'telepon.min'           => 'Nomor telepon minimal 9 digit.',
             'alamat.required'       => 'Alamat lengkap wajib diisi.',
             'alamat.min'            => 'Alamat lengkap minimal 10 karakter.',
-            'kota.required'         => 'Kota wajib diisi.',
+            'provinsi_id.required'  => 'Provinsi wajib dipilih.',
+            'kota_id.required'      => 'Kota wajib dipilih.',
+            'kecamatan_id.required' => 'Kecamatan wajib dipilih.',
+            'layanan.required'      => 'Layanan pengiriman wajib dipilih.',
+        ]);
+
+        // ---------- 1a. Wilayah harus saling cocok ----------
+        $kecamatan = Kecamatan::with('kota.provinsi')->find($data['kecamatan_id']);
+
+        if (
+            (int) $kecamatan->kota_id !== (int) $data['kota_id']
+            || (int) $kecamatan->kota->provinsi_id !== (int) $data['provinsi_id']
+        ) {
+            return back()->withErrors(['kecamatan_id' => __('web.wilayah_tidak_cocok')])->withInput();
+        }
+
+        // ---------- 1b. Ongkir dihitung ulang di server ----------
+        $berat = Keranjang::totalBerat();
+
+        try {
+            $layanan = RajaOngkir::hitung($kecamatan->id, $berat)->firstWhere('kode', $data['layanan']);
+        } catch (RuntimeException $e) {
+            return back()->with('gagal', __('web.ongkir_gagal'))->withInput();
+        }
+
+        if (! $layanan) {
+            return back()->withErrors(['layanan' => __('web.layanan_tidak_berlaku')])->withInput();
+        }
+
+        $ongkir = $layanan['biaya'];
+
+        // ---------- 1c. Data yang disimpan ke pesanans ----------
+        $data = array_merge(Arr::except($data, ['provinsi_id', 'kota_id', 'layanan']), [
+            'provinsi'       => $kecamatan->kota->provinsi->nama,
+            'kota'           => $kecamatan->kota->nama,
+            'kecamatan'      => $kecamatan->nama,
+            'kecamatan_id'   => $kecamatan->id,
+            'kode_pos'       => $data['kode_pos'] ?: $kecamatan->kode_pos,
+            'kurir'          => $layanan['kurir'],
+            'layanan_kurir'  => $layanan['layanan'],
+            'estimasi_kirim' => $layanan['estimasi'],
+            'berat_total'    => $berat,
         ]);
 
         // ---------- 2. Simpan sebagai satu kesatuan ----------
         try {
 
-            $pesanan = DB::transaction(function () use ($data, $daftarItem) {
+            $pesanan = DB::transaction(function () use ($data, $daftarItem, $ongkir) {
 
                 $subtotal = 0;
                 $baris    = [];
@@ -104,10 +163,11 @@ class CheckoutController extends Controller
                 $pesanan = Pesanan::create(array_merge($data, [
                     'kode_pesanan' => $this->buatKode(),
                     'subtotal'     => $subtotal,
-                    'ongkir'       => 0,      // dihitung di Pertemuan 10
-                    'total'        => $subtotal,
+                    'ongkir'       => $ongkir,                  // ← Pertemuan 11
+                    'total'        => $subtotal + $ongkir,      // ← Pertemuan 11
                     'status'       => 'baru',
                 ]));
+
 
                 $pesanan->detail()->createMany($baris);
 
