@@ -11,6 +11,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MidtransNotifikasiController;
 use App\Http\Controllers\BackOffice\PesananController;
+use App\Http\Controllers\OngkirController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,6 +58,15 @@ Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout
 Route::post('/midtrans/notifikasi', MidtransNotifikasiController::class)
     ->name('midtrans.notifikasi');
 
+Route::controller(OngkirController::class)
+    ->prefix('ongkir')
+    ->name('ongkir.')
+    ->middleware('throttle:30,1')
+    ->group(function () {
+        Route::get('/kota/{provinsi}', 'kota')->whereNumber('provinsi')->name('kota');
+        Route::get('/kecamatan/{kota}', 'kecamatan')->whereNumber('kota')->name('kecamatan');
+        Route::post('/hitung', 'hitung')->name('hitung');
+    });
 
 // back office
 Route::prefix('back-office')->name('back_office.')->group(function () {
