@@ -38,6 +38,7 @@ class ProdukController extends Controller
     {
         $data = $this->periksaIsian($request);
 
+
         // Simpan gambar bila ada
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('produk', 'public');
@@ -111,7 +112,7 @@ class ProdukController extends Controller
             'harga'        => ['required', 'numeric', 'min:0'],
             'harga_coret'  => ['nullable', 'numeric', 'min:0', 'gt:harga'],
             'stok'         => ['required', 'integer', 'min:0'],
-            'berat'        => ['required', 'integer', 'min:0'],
+            'berat' => ['required', 'integer', 'min:1', 'max:50000'],
             'status'       => ['required', 'in:aktif,nonaktif'],
             'gambar'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ], [
